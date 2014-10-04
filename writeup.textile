@@ -1,0 +1,86 @@
+
+h1. Secrets of Successful Visualization Blogs
+
+A simple analysis of the posting  patterns of three popular visualization aggregation and discussion sites.
+
+So, I'm starting a new locale based, aggregate visualization site: "VisKC.com":http://viskc.com/ . 
+
+I see it as "FlowingData":http://flowingdata.com meets "Bostonography":http://bostonography.com/ - a place where I can point out Kansas City themed visualizations, as well as a venue to host my own KC-based creations.
+
+Perhaps there is room for it, perhaps there's not. But that's not what I want to look at today.
+
+Recently, Andy Kirk celebrated "three years of blogging":http://www.visualisingdata.com/index.php/2013/02/celebrating-three-years-of-blogging/ about data visualization. His reminiscing on the topic got me thinking: what made his, and other data visualization blogs, successful?
+
+And then I immediately answered my own question: quality, quantity, and persistence. Sites like "visualisingdata.com":http://www.visualisingdata.com/ and "flowingdata.com":http://flowingdata.com/ have been churning out quality insights and notes on data visualization topics for years. 
+
+Ok, an obvious answer to an ignorant question. Fine. Good. 
+
+But this answer made me ponder another aspect of the quote/unquote *successful* data visualization blogger: As I start my own aggregation site, and continue this personal portfolio, is there anything I can learn from the patterns and writings of those that have gone before me? On the shoulders of giants, right?
+
+Well, let's find out.
+
+What follows is a simplistic, some-what exploratory analysis of the content generated on a few data visualization blogs during 2012. 
+
+h2. Finding Giants 
+
+Lead by the afore mentioned "Visualising Data anniversary post"::http://www.visualisingdata.com/index.php/2013/02/celebrating-three-years-of-blogging/ , I decided to look more closely at three data visualization blogs I enjoy: FlowingData, Infosthetics, and Visualising Data.
+
+I chose "FlowingData":http://flowingdata.com/ and "Infosthetics":http://infosthetics.com/ because their style mirrors what I want the main focus of "VisKC":http://viskc.com/ to be - a site that mainly focuses on promoting other people's work to share interesting, useful, and/or inspiring content. 
+
+I added "Visualising Data":http://visualisingdata.com/ because, to me, it is a good example of a slightly different style of blogging that seems common in the data visualization world. While the FlowingData style focuses mainly on reporting, sites like Visualising Data, "The Why Axis":http://thewhyaxis.info/, and even "Junk Charts":http://junkcharts.typepad.com/ provide a mix of reporting and commentary on interesting visualization developments. So they have both aggregation and creation of new content in one site.
+
+As I eventually want to add my own content to this site, I figured it would be good to have one of these _hybrid_ blogs in the analysis. (Plus, Andy's post inspired this data dive, so it would be unfair not to have him, right?).
+
+h2. Scraping Some Data
+
+While, it would have been nice to look at the latest and greatest posts, for up-to-the-minute analysis, I wanted a data-set that wouldn't change under me as I went through it. 
+
+So, I decided to look at all the 2012 posts made on these sites. This seemed like a reasonable span of time to learn something from, without being too old or outdated to matter. 
+
+In retrospect, I should have used the sites RSS feeds to capture the information I wanted, but instead I just wrote some basic scrapers that went through the monthly pages of each site. I grabbed some meta-data about each post, as well as the content of the post for further analysis.
+
+Here are the number of posts found from each site for 2012:
+* FlowingData: 393
+* Infosthetics: 126
+* Visualising Data: 121
+
+Wow! "Nathan Yau":https://twitter.com/nathanyau can really pump out the posts! I was hoping they would all be in the same ball-park, so I wouldn't have to normalize - but its still interesting to know how prolific FlowingData is.
+
+h3. Skewering Some Tweets
+
+From what I have witnessed in the data visualization community, Twitter is the main venue for announcing and promoting new works and interesting posts. It also has been increasingly the spot where people go for feedback, and discussion of a particular piece or article. And, as I use it for these purposes as well, I wanted to see what information about these sites use of the medium could be gleaned. 
+
+So, for each post found on these three sites for 2012, I tried to find a tweet from the site's owner about that post. 
+
+Posts with _missing_ tweets:
+* FlowingData: 41 (10%)
+* Infosthetics: 8 (6%)
+* Visualising Data: 47 (39%)
+
+Well, sorry Andy, my Twitter matching skills aren't so hot on your tweets. Part of this is the timeline limit of 3,200 tweets meant I could only get Visualising Data tweets back to the middle of March. Posts in January and February weren't covered. Then, Andy's tweets are always a bit more fast and loose - so there is probably some detail that I'm overlooking as to how to match up his tweets with Visualising Data posts. 
+
+In any case, the other two sites have most of their posts covered, so we will focus on them in the Twitter-based analysis sections.
+
+h2. Questions to Explore
+
+When I started this little analysis project, one of my main questions I was hoping to answer was _when should I post?_ Specifically, is there a preference on these sites for day of the week and/or time of day that I can emulate to hit more readers and have a bigger impact?
+
+The concept of 'impact' leads to perhaps a bigger question, that I may or may not have the data or brainpower to answer: _which posts make the biggest impact?_ Tied to this question is one combining impact and time, specifically, are there specific time frames where posts get more of a response? Meaning, is there a sweet spot for posting that gives you the most bang for your buck?
+
+For both of these questions, the start to answering them is to define what *impact* means for this analysis. If I had traffic metrics, I could use that, but I don't. Comments on a post might work, but I feel that they are more about the long term overall readership or interest a post (which is still a valuable thing to look at). 
+
+Here, I'd like to look at the more immediate impact of a new posting. I want to know if there is a time in the day that will make my posts rocket through the online world, stealing eyes and ears away from more important tasks just to look at the drivel I've written. That's why I integrated Twitter into this data. I'll use *retweet* count as a metric of impact. Let's see if a posts 'retweetableness' is just because of its content, or if there is some good timing involved too.
+
+Finally, shifting to content, I want to look at what is actually in these posts. I already know that FlowingData and Infosthetics mainly serve to report on existing works. For these, I wanted to know how much discussion and content the writers of these posts felt it was necessary to share with their audience. Specifically, I'll look at the word count, the number of images in a post, and the number of links in a post. As the nature of Visualising Data's posts are different, we will look at the same metrics to see how they differ from the reporting style. 
+
+h2. Tools for Exploring
+
+Before starting with the analysis, I'd like to reiterate this analysis is one more of the exploratory kind. Thus, the graphics generated by it will trend towards the exploratory variety. While I enjoy using interactive technologies like JavaScript and D3.js for finished visualizations, this analysis was driven using R.
+
+I used a number of packages, mostly from "Hadley Wickham's":https://twitter.com/hadleywickham stable of amazing R tools: "ggplot2":http://ggplot2.org/, "plyr":http://plyr.had.co.nz/, and "lubridate":https://github.com/hadley/lubridate. I also found "ggthemes":https://github.com/jrnold/ggthemes which is great for providing some theme options to ggplots. I'm using the Economist theme here. 
+
+h2. Publishing and Pushing your Post
+
+Ok, let's take a look at the data. First, we will focus on the timing of posts. As an overview, lets see how posting frequency changed over the course of the year:
+
+
