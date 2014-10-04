@@ -13,7 +13,7 @@ colors <- c('#D62728', '#2CA02C', '#1F77B4')
 
 output_dir <- "out"
 
-all_filename <- "all.csv"
+all_filename <- "data/all.csv"
 #flowing_input_filename <- "flowingdata.csv"
 # info_input_filename <- "infosthetics.csv"
 
@@ -50,7 +50,8 @@ print(p)
 #tweeted_data <- subset(data, !is.na(offset_hours))
 p <- ggplot(time_counts, aes(x = hour, y = percent, fill = source))
 p <- p + geom_bar(stat = 'identity', binwidth = 1) + scale_y_continuous('% Posted', labels = percent) + scale_fill_manual(values = colors)
-p <- p + scale_x_discrete('Hour of the day', limits = 0:23) + labs(title = 'Posts by Hour (UTC)')+ theme_economist() + facet_grid(source~ .) +  opts(legend.position = "none") 
+p <- p + scale_x_discrete('Hour of the day', limits = 0:23) + labs(title = 'Posts by Hour (UTC)')+ theme_economist() + facet_grid(source~ .) 
+p <- p+  theme(legend.position = "none") 
 p
 image_name <- paste(output_dir, '/', 'post_by_hour_facet_source_utc', '.png', sep='')
 png(image_name, width = 790, height = 800)
@@ -59,7 +60,7 @@ dev.off()
 
 p <- ggplot(local_time_counts, aes(x = hour, y = percent, fill = source))
 p <- p + geom_bar(stat = 'identity', binwidth = 1) + scale_y_continuous('% Posted', labels = percent) + scale_fill_manual(values = colors)
-p <- p + scale_x_discrete('Hour of the day', limits = 0:23) + labs(title = 'Posts by Hour (Local)')+ theme_economist() + facet_grid(source~ .) +  opts(legend.position = "none") 
+p <- p + scale_x_discrete('Hour of the day', limits = 0:23) + labs(title = 'Posts by Hour (Local)')+ theme_economist() + facet_grid(source~ .) +  theme(legend.position = "none") 
 p
 image_name <- paste(output_dir, '/', 'post_by_hour_facet_source_local', '.png', sep='')
 png(image_name, width = 790, height = 800)
